@@ -1,0 +1,17 @@
+
+understand how to plug into lda_gibbs.py code
+
+variables to potentially set/modify:
+N_TOPICS
+DOCUMENT_LENGTH
+vocab_size
+gen_documents()
+
+find out how to parse movietriples
+find out which is the right file
+read it in
+see how a triple is stored, make corpus a list of the utterances, feed
+to vectorizer
+
+/mnt/networked/hackathon/MovieTriples/Training_Shuffled_Dataset.txt
+
