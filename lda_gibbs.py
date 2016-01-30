@@ -272,7 +272,7 @@ if __name__ == "__main__":
         shutil.rmtree(FOLDER)
     os.mkdir(FOLDER)
 
-    num_triples = '_1k'
+    num_triples = ''
     data_dir = '/mnt/networked/hackathon/MovieTriples'
     fn = {'raw_data': data_dir + '/' + 'Training_Shuffled_Dataset' + \
           num_triples +'.txt',
