@@ -176,7 +176,7 @@ if __name__ == "__main__":
         height, width = doc.shape
         zoom = np.ones((width*zoom, width*zoom))
         # imsave scales pixels between 0 and 255 automatically
-        sp.misc.imsave(filename, np.kron(doc, zoom))
+        # sp.misc.imsave(filename, np.kron(doc, zoom))
 
     def gen_word_distribution(n_topics, document_length):
         """
