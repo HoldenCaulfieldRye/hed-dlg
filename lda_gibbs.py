@@ -234,7 +234,7 @@ if __name__ == "__main__":
 
     def getCorpus(dataset_fn):
         corpus = []
-        print 'reading in data...'
+        print 'reading in data from %s...' % (dataset_fn.split('/')[-1])
         with open(dataset_fn, 'r') as f:
             corpus = f.readlines()
         corpus = [it.strip().split('\t') for it in corpus]
@@ -246,7 +246,7 @@ if __name__ == "__main__":
         Get bag-of-word representation of text dataset, as a matrix.
         """
         vocab_size = None 
-        vName = 'Training_Utterances_Tfidf'
+        vName = 'training_utterances_tfidf'
         if os.path.isfile(fn['tfidf_h5']):
             print "reading in vectorised data..."
             h5f = h5py.File(fn['tfidf_h5'], 'r')
@@ -272,11 +272,11 @@ if __name__ == "__main__":
         shutil.rmtree(FOLDER)
     os.mkdir(FOLDER)
 
-    num_triples = ''
+    num_triples = '_10k'
     data_dir = '/mnt/networked/hackathon/MovieTriples'
     fn = {'raw_data': data_dir + '/' + 'Training_Shuffled_Dataset' + \
           num_triples +'.txt',
-          'tfidf_h5': data_dir + '/' + 'Training_Utterances_Tfidf' + \
+          'tfidf_h5': data_dir + '/' + 'training_utterances_tfidf' + \
           num_triples + '.h5'}
     
     width = N_TOPICS / 2
