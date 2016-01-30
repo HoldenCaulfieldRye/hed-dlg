@@ -10,7 +10,7 @@ import sys
 import os
 import numpy
 import codecs
-import search
+import search_v2 as search
 import utils
 
 from dialog_encdec import DialogEncoderDecoder
@@ -54,7 +54,7 @@ def parse_args():
             help="Number of samples")
 
     parser.add_argument("--n-turns",
-                        default=1, type=int,
+                        default=100, type=int,
                         help="Number of dialog turns to generate")
 
     parser.add_argument("--normalize",
@@ -96,7 +96,9 @@ def main():
     lines = open(args.context, "r").readlines()
     if len(lines):
         contexts = [x.strip().split('\t') for x in lines]
-    
+    print contexts
+    return
+    print args.n_samples
     context_samples, context_costs = sampler.sample(contexts,
                                             n_samples=args.n_samples,
                                             n_turns=args.n_turns,
@@ -105,7 +107,8 @@ def main():
      
     # Write to output file
     output_handle = open(args.output, "w")
-    for context_sample in context_samples:
+    for context_sample,context in zip(context_samples,contexts):
+        print >> output_handle, '\t'.join(context)
         print >> output_handle, '\t'.join(context_sample)
     output_handle.close()
 

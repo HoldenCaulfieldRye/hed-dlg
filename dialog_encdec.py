@@ -14,7 +14,8 @@ import cPickle
 import logging
 logger = logging.getLogger(__name__)
 
-from theano.sandbox.scan import scan
+# from theano.sandbox.scan import scan
+from theano.scan_module import scan
 from theano.sandbox.rng_mrg import MRG_RandomStreams
 from theano.tensor.nnet.conv3d2d import *
 from collections import OrderedDict
