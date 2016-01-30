@@ -245,6 +245,7 @@ if __name__ == "__main__":
         """
         Get bag-of-word representation of text dataset, as a matrix.
         """
+        vocab_size = None 
         vName = 'Training_Utterances_Tfidf'
         if os.path.isfile(fn['tfidf_h5']):
             print "reading in vectorised data..."
@@ -260,6 +261,7 @@ if __name__ == "__main__":
             vocab_size = len(wordList)
             print "vocab size", vocab_size
             m = X.toarray()
+            print "saving vectorised data in hdf5 format..."
             h5f = h5py.File(fn['tfidf_h5'])
             h5f.create_dataset(vName, data=m)
             h5f.close()
@@ -274,7 +276,7 @@ if __name__ == "__main__":
     data_dir = '/mnt/networked/hackathon/MovieTriples'
     fn = {'raw_data': data_dir + '/' + 'Training_Shuffled_Dataset' + \
           num_triples +'.txt',
-          'tfidf_h5' data_dir + '/' + 'Training_Utterances_Tfidf' + \
+          'tfidf_h5': data_dir + '/' + 'Training_Utterances_Tfidf' + \
           num_triples + '.h5'}
     
     width = N_TOPICS / 2
