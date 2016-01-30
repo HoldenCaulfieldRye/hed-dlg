@@ -8,7 +8,8 @@ Latent Dirichlet Allocation, as described in
 Finding scientifc topics (Griffiths and Steyvers)
 """
 
-import sys
+import sys, os
+import h5py
 import numpy as np
 import scipy as sp
 import sklearn 
@@ -240,28 +241,47 @@ if __name__ == "__main__":
         corpus = [subit for it in corpus for subit in it]
         return corpus
     
-    def get_documents(dataset_fn):
+    def get_documents(fn):
         """
         Get bag-of-word representation of text dataset, as a matrix.
         """
-        corpus = getCorpus(dataset_fn)
-        vectorizer = TfidfVectorizer(min_df=1)
-        print "vectorising data via tf-idf..."
-        X = vectorizer.fit_transform(corpus)
-        wordList = vectorizer.get_feature_names()
-        m = X.toarray()
-        return m
+        vName = 'Training_Utterances_Tfidf'
+        if os.path.isfile(fn['tfidf_h5']):
+            print "reading in vectorised data..."
+            h5f = h5py.File(fn['tfidf_h5'], 'r')
+            m = h5f[vName][:]
+            h5f.close()
+        else:
+            corpus = getCorpus(fn['raw_data'])
+            vectorizer = TfidfVectorizer(min_df=1)
+            print "vectorising data via tf-idf..."
+            X = vectorizer.fit_transform(corpus)
+            wordList = vectorizer.get_feature_names()
+            vocab_size = len(wordList)
+            print "vocab size", vocab_size
+            m = X.toarray()
+            h5f = h5py.File(fn['tfidf_h5'])
+            h5f.create_dataset(vName, data=m)
+            h5f.close()
+                            
+        return m, vocab_size
 
     if os.path.exists(FOLDER):
         shutil.rmtree(FOLDER)
     os.mkdir(FOLDER)
 
-    dataset_fn = '/mnt/networked/hackathon/MovieTriples/Training_Shuffled_Dataset.txt'
+    num_triples = '_1k'
+    data_dir = '/mnt/networked/hackathon/MovieTriples'
+    fn = {'raw_data': data_dir + '/' + 'Training_Shuffled_Dataset' + \
+          num_triples +'.txt',
+          'tfidf_h5' data_dir + '/' + 'Training_Utterances_Tfidf' + \
+          num_triples + '.h5'}
+    
     width = N_TOPICS / 2
     vocab_size = width ** 2
     word_dist = gen_word_distribution(N_TOPICS, DOCUMENT_LENGTH)
     # matrix = gen_documents(word_dist, N_TOPICS, vocab_size)
-    matrix = get_documents(dataset_fn)
+    matrix, vocab_size = get_documents(fn)
     sampler = LdaSampler(N_TOPICS)
 
     for it, phi in enumerate(sampler.run(matrix)):
