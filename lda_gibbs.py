@@ -13,7 +13,7 @@ import numpy as np
 import scipy as sp
 import sklearn 
 from scipy.special import gammaln
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 def sample_index(p):
     """
@@ -233,13 +233,11 @@ if __name__ == "__main__":
 
     def getCorpus(dataset_fn):
         corpus = []
-        print 'getting corpus...'
+        print 'reading in data...'
         with open(dataset_fn, 'r') as f:
             corpus = f.readlines()
         corpus = [it.strip().split('\t') for it in corpus]
         corpus = [subit for it in corpus for subit in it]
-        print corpus[:5]
-        sys.exit()
         return corpus
     
     def get_documents(dataset_fn):
@@ -247,8 +245,11 @@ if __name__ == "__main__":
         Get bag-of-word representation of text dataset, as a matrix.
         """
         corpus = getCorpus(dataset_fn)
-        vectorizer = CountVectorizer(min_df=1)
-        m = vectorizer.fit_transform(corpus)
+        vectorizer = TfidfVectorizer(min_df=1)
+        print "vectorising data via tf-idf..."
+        X = vectorizer.fit_transform(corpus)
+        wordList = vectorizer.get_feature_names()
+        m = X.toarray()
         return m
 
     if os.path.exists(FOLDER):
