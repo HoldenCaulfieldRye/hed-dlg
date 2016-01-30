@@ -8,6 +8,7 @@ Latent Dirichlet Allocation, as described in
 Finding scientifc topics (Griffiths and Steyvers)
 """
 
+import sys
 import numpy as np
 import scipy as sp
 import sklearn 
@@ -232,14 +233,16 @@ if __name__ == "__main__":
 
     def getCorpus(dataset_fn):
         corpus = []
+        print 'getting corpus...'
         with open(dataset_fn, 'r') as f:
             corpus = f.readlines()
-        corpus = [subit.strip().strip('\t') for it in corpus for subit in it]
+        corpus = [it.strip().split('\t') for it in corpus]
+        corpus = [subit for it in corpus for subit in it]
         print corpus[:5]
         sys.exit()
         return corpus
     
-    def get_documents(vocab_size, n, dataset_fn):
+    def get_documents(dataset_fn):
         """
         Get bag-of-word representation of text dataset, as a matrix.
         """
@@ -257,7 +260,7 @@ if __name__ == "__main__":
     vocab_size = width ** 2
     word_dist = gen_word_distribution(N_TOPICS, DOCUMENT_LENGTH)
     # matrix = gen_documents(word_dist, N_TOPICS, vocab_size)
-    matrix = get_documents()
+    matrix = get_documents(dataset_fn)
     sampler = LdaSampler(N_TOPICS)
 
     for it, phi in enumerate(sampler.run(matrix)):
