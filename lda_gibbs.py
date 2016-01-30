@@ -10,7 +10,9 @@ Finding scientifc topics (Griffiths and Steyvers)
 
 import numpy as np
 import scipy as sp
+import sklearn 
 from scipy.special import gammaln
+from sklearn.feature_extraction.text import CountVectorizer
 
 def sample_index(p):
     """
@@ -196,7 +198,8 @@ if __name__ == "__main__":
 
         return m
 
-    def gen_document(word_dist, n_topics, vocab_size, length=DOCUMENT_LENGTH, alpha=0.1):
+    def gen_document(word_dist, n_topics, vocab_size, length=DOCUMENT_LENGTH,
+                     alpha=0.1):
         """
         Generate a document:
             1) Sample topic proportions from the Dirichlet distribution.
@@ -218,19 +221,43 @@ if __name__ == "__main__":
         """
         Generate a document-term matrix.
         """
+        # How are docs represented? need to do the same with movietriples dataset
+        # Is n input dimensionality? no, that's vocab_size because of bag of words
+        # representation. n is size of dataset
         m = np.zeros((n, vocab_size))
         for i in xrange(n):
+            # generates a doc. this is the bit where we need to parse the docs
             m[i, :] = gen_document(word_dist, n_topics, vocab_size)
+        return m
+
+    def getCorpus(dataset_fn):
+        corpus = []
+        with open(dataset_fn, 'r') as f:
+            corpus = f.readlines()
+        corpus = [subit.strip().strip('\t') for it in corpus for subit in it]
+        print corpus[:5]
+        sys.exit()
+        return corpus
+    
+    def get_documents(vocab_size, n, dataset_fn):
+        """
+        Get bag-of-word representation of text dataset, as a matrix.
+        """
+        corpus = getCorpus(dataset_fn)
+        vectorizer = CountVectorizer(min_df=1)
+        m = vectorizer.fit_transform(corpus)
         return m
 
     if os.path.exists(FOLDER):
         shutil.rmtree(FOLDER)
     os.mkdir(FOLDER)
 
+    dataset_fn = '/mnt/networked/hackathon/MovieTriples/Training_Shuffled_Dataset.txt'
     width = N_TOPICS / 2
     vocab_size = width ** 2
     word_dist = gen_word_distribution(N_TOPICS, DOCUMENT_LENGTH)
-    matrix = gen_documents(word_dist, N_TOPICS, vocab_size)
+    # matrix = gen_documents(word_dist, N_TOPICS, vocab_size)
+    matrix = get_documents()
     sampler = LdaSampler(N_TOPICS)
 
     for it, phi in enumerate(sampler.run(matrix)):
