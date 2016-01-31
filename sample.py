@@ -53,10 +53,6 @@ def parse_args():
             default="1", type=int,
             help="Number of samples")
 
-    parser.add_argument("--n-turns",
-                        default=100, type=int,
-                        help="Number of dialog turns to generate")
-
     parser.add_argument("--normalize",
             action="store_true", default=False,
             help="Normalize log-prob with the word count")
@@ -97,11 +93,11 @@ def main():
     if len(lines):
         contexts = [x.strip().split('\t') for x in lines]
     print contexts
-    context_samples, context_costs = sampler.sample(contexts,
-                                            n_samples=args.n_samples,
-                                            n_turns=args.n_turns,
-                                            ignore_unk=args.ignore_unk,
-                                            verbose=args.verbose)
+    context_samples, context_costs = sampler.sample(contexts,n_samples=5)
+                                            # n_samples=args.n_samples,
+                                            # n_turns=args.n_turns,
+                                            # ignore_unk=args.ignore_unk,
+                                            # verbose=args.verbose)
      
     # Write to output file
     output_handle = open(args.output, "w")

@@ -69,6 +69,10 @@ def parse_args():
     parser.add_argument("model_prefix",
             help="Path to the model prefix (without _model.npz or _state.pkl)")
 
+    parser.add_argument("--n-turns",
+                        default=100, type=int,
+                        help="Number of dialog turns to generate")
+
     parser.add_argument("--normalize",
             action="store_true", default=False,
             help="Normalize log-prob with the word count")
@@ -101,28 +105,28 @@ def main():
     beam_search = None
     sampler = None
 
-    beam_search = search.BeamSampler(model)
+    beam_search = search.RandomSampler(model)
     beam_search.compile()
 
     sample_sentences = [ '{0}',
         'i love {0}',
         'what is your favourite {0} ?',
-        'tell me something about {0} .',
-        'oh no , a {0} !',
-        'a {0} is so delicious .',
-        "what ' s the big deal about {0} ?",
-        'i really want to {0} .',
-        'would you like to {0} with me?',
-        "let ' s all go {0} .",
-        'i think women are so {0}.',
-        'this {0} has got me so hot right now',
-        'i hate {0} ',
-        'do you like {0} ?',
-        "your friend ' s {0} looks so good",
-        "i ' m sure you're not good at {0}",
-        "that sounds like a {0} idea",
-        "i like my {0} strong",
-        "where is the {0} ?"]
+        'tell me something about {0} .']#,
+        # 'oh no , a {0} !',
+        # 'a {0} is so delicious .',
+        # "what ' s the big deal about {0} ?",
+        # 'i really want to {0} .',
+        # 'would you like to {0} with me?',
+        # "let ' s all go {0} .",
+        # 'i think women are so {0}.',
+        # 'this {0} has got me so hot right now',
+        # 'i hate {0} ',
+        # 'do you like {0} ?',
+        # "your friend ' s {0} looks so good",
+        # "i ' m sure you're not good at {0}",
+        # "that sounds like a {0} idea",
+        # "i like my {0} strong",
+        # "where is the {0} ?"]
 
     # Start chat loop    
     print "READY"
@@ -133,7 +137,7 @@ def main():
         utterances = []
         for sample_sentence in sample_sentences:
             utterances.append([sample_sentence.format(word)])
-        context_samples, context_costs = beam_search.sample(utterances,n_samples = 5)
+        context_samples, context_costs = beam_search.sample(utterances,n_samples = 1,n_turns=args.n_turns)
         all_samples += context_samples
 
         flat_samples = [item for a in all_samples for item in a]
