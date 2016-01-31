@@ -125,7 +125,6 @@ def main():
         "where is the {0} ?"]
 
     # Start chat loop    
-    # utterances = collections.deque()
     print "READY"
     sys.stdout.flush()
     while (True):
@@ -134,10 +133,6 @@ def main():
         utterances = []
         for sample_sentence in sample_sentences:
             utterances.append([sample_sentence.format(word)])
-            # utterances.append(utterance)
-            # utterance = word
-            # print utterance
-        print utterances
         context_samples, context_costs = beam_search.sample(utterances,n_samples = 5)
         all_samples += context_samples
 
