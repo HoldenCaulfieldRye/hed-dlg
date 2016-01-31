@@ -277,6 +277,7 @@ if __name__ == "__main__":
     os.mkdir(FOLDER)
 
     # 10k has vocab size 15749
+    max_iter = 30
     num_triples = '_1k'
     data_dir = '/disk1/data/hackathon/MovieTriples'
     fn = {'raw_data': data_dir + '/' + 'Training_Shuffled_Dataset' + \
@@ -286,7 +287,14 @@ if __name__ == "__main__":
           'wordList': data_dir + '/' + 'word_list' + num_triples + '.json',
           'topicModel': data_dir + '/' + 'topicModel' + num_triples + '.npz',
           'data_lda': data_dir + '/' + 'training_utterances_lda' + \
-          num_triples + '.npz'}
+          num_triples + '.npz',
+          'output': 'out.txt'}
+
+    intro = '\t'.join(['N_TOPICS','DOC_LEN','maxiter','numtriples']) + '\n'
+    intro += '\t'.join(map(str, [N_TOPICS,DOCUMENT_LENGTH,max_iter,num_triples]))
+    intro += '\n'
+    with open(fn['output'], 'a') as f:
+        f.write(intro)
     
     width = N_TOPICS / 2
     # vocab_size = width ** 2
@@ -296,7 +304,7 @@ if __name__ == "__main__":
     sampler = LdaSampler(N_TOPICS)
 
     print "training..."
-    for it, phi in enumerate(sampler.run(matrix)):
+    for it, phi in enumerate(sampler.run(matrix, maxiter=max_iter)):
         print "Iteration", it
         print "Likelihood", sampler.loglikelihood()
 
@@ -305,12 +313,14 @@ if __name__ == "__main__":
     corpus_np = np.asarray(getCorpus(fn['raw_data']))
     
     for topc in xrange(m_lda.shape[1]):
-        print "top 10 utterances for topic %i:" % (topc)
+        s = ''
+        s += "\ntop 10 utterances for topic " + str(topc) + ':\n'
+        # print "top 10 utterances for topic %i:" % (topc)
         topc_score = m_lda[:,topc]
         top_idxs = np.argsort(topc_score)[::-1]
-        print topc_score[top_idxs[:10]] # this works but get repeats
         corpus_np_s = corpus_np[top_idxs]
-        print corpus_np_s[0]
+        s += corpus_np_s[0] + '\n'
+        # print corpus_np_s[0]
         idx, count = 1, 1
         while count < 10 and idx < corpus_np_s.shape[0]:
             duplicate = False
@@ -319,10 +329,14 @@ if __name__ == "__main__":
                     duplicate = True
                     break
             if not duplicate:
-                print corpus_np_s[idx]
+                s += corpus_np_s[idx] + '\n'
+                # print corpus_np_s[idx]
                 count +=1
             idx += 1
-        
+        print s
+        with open(fn['output'], 'a') as f: f.write(s)
+    with open(fn['output'], 'a') as f: f.write('\n------------\n\n')
+
 
     np.save(fn['topicModel'], phi)
     np.save(fn['data_lda'], m_lda)
