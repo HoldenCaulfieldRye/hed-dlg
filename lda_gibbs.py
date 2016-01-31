@@ -322,11 +322,6 @@ if __name__ == "__main__":
                 print corpus_np_s[idx]
                 count +=1
             idx += 1
-        # for utt in np.unique(corpus_np[top_idxs])
-        # print ''
-        # for utt in np.unique(corpus_np[top_idxs])[:10]:
-        #     print utt
-        # print ''
         
 
     np.save(fn['topicModel'], phi)
