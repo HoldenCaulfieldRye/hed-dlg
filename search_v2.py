@@ -194,8 +194,8 @@ class Sampler(object):
         gen = [[] for i in range(n_samples)]
         costs = [0. for i in range(n_samples)]
         beam_empty = False
-        l=.9
-        gamma = 300.0
+        l=0.9
+        gamma = 4.0
         
         for k in range(max_length):
             if k > gamma:
@@ -212,13 +212,12 @@ class Sampler(object):
 
            
             prior, new_hd_null = self.get_probs(k,context_null,reversed_context_null,semantic_info,prev_hs_null,prev_hd_null,gen,ignore_unk,min_length)
-            # prior *= next_probs_null
-            # print next_probs_null
-            # Update costs 
-            # next_costs = numpy.array(costs)[:, None] - (numpy.log(next_probs)-l*np.log(g*next_probs_null)+0*gamma*k)
-            next_probs = np.exp((np.log(likelihood)-l*np.log(g*prior)))
-            # print next_probs
-            next_costs = numpy.array(costs)[:, None] - (np.log(likelihood)-l*np.log(g*prior))
+            if k >gamma:
+                next_probs = likelihood/(l*np.log(prior))
+            else:
+                next_probs = likelihood   
+            
+            next_costs = numpy.array(costs)[:, None] - (np.log(likelihood)-g*l*np.log(prior))
             # print next_probs_null.shape
             # assert False
             # Select next words here
@@ -231,7 +230,6 @@ class Sampler(object):
             for num, (beam_ind, word_ind, cost) in enumerate(zip(beam_indx, word_indx, costs)):
                 if len(new_gen) > n_samples:
                     break
-
                 hypothesis = gen[beam_ind] + [word_ind]
                  
                 # End of sentence has been detected
@@ -295,6 +293,7 @@ class RandomSampler(Sampler):
         self.hyp_rec = 0
 
     def select_next_words(self, next_costs, next_probs, step_num, how_many):
+
         # Choice is complaining
         next_probs = next_probs.astype("float64") 
         word_indx = numpy.array([self.model.rng.choice(self.model.idim, p = x/numpy.sum(x))
