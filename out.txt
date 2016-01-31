@@ -1,0 +1,377 @@
+N_TOPICS	DOC_LEN	maxiter	numtriples
+10	100	30	_1k
+
+top 10 utterances for topic 0:
+who ? <person> , <person> ! where are you ?
+once . i forget where i was . <person> maybe . <person> hot . <person> job . bad pay . <person> location and water so foul the natives wouldn ' t even piss in it . this crowd of drunken motherfuckers hired by the local drug cartel shows up at my hotel room and threatens to tear me limb from limb . and i say , listen , hombres , ok , you ' ve got me outnumbered four to one and you ' re gunna kill me here tonight and not a soul in this dimly lit world is ever gunna notice i ' m gone . <person> . but one of you . one of you . one of you is gunna have his eye torn out . <person> . <person> . i repeat myself . one of you poor , underpaid jerks is gunna have an eye ripped out of its socket . i promise . it ' s a small thing , perhaps , all things considered . but i will succeed . because it ' s the only thing i have left to do in this world . so why don ' t you just take a good look at one another one last time and think it over for a few minutes more . they sober up a little , look at their shoes in confusion , then step out into the hall to talk among themselves .
+<person> .
+<person> ?
+<person> , <person> .
+<person> !
+<person> -- ?
+<person> . <person> <person> .
+uh-uh .
+<person> . <person> !
+
+top 10 utterances for topic 1:
+yeah .
+yeah ?
+yeah . i know you .
+yeah , yeah -- go home .
+yeah . i know about that .
+well . yeah --
+yeah . what else ?
+<person> three . yeah .
+yeah , that ' s good !
+i think so , yeah .
+
+top 10 utterances for topic 2:
+<person> , i . can ' t .
+oh ! <person> .
+<person> ! ! oh !
+<person> .
+<person> ' .
+<person> ?
+huh ?
+<person> !
+<person> ' s <person> .
+<person>d , <person> ?
+
+top 10 utterances for topic 3:
+no .
+no , i .
+no ?
+oh , yeah . no , no , no . they wouldn ' t --
+no i don ' t .
+no , no , no . <person> . <person> joke . for us . <person>s . <continued_utterance> . <person> .
+no , no no no . it ' s her birthday ! it ' s her birthday !
+no . why ?
+oh , no . no , it ' s a . it ' s a traffic thing . no big deal .
+you no got ta no gun .
+
+top 10 utterances for topic 4:
+<person> .
+<person> !
+<person> . ?
+<person> ?
+<person> ' .
+<person> --
+<person>
+<person> , <person> .
+<person> . <person> .
+<person> ' s <person> .
+
+top 10 utterances for topic 5:
+<person> ?
+<person> .
+<person> !
+<person> --
+<person>d , <person> ?
+<person> . <person> .
+<person> ' s <person> .
+<person> . <person> <person> .
+<person> -- ?
+<person> . ?
+
+top 10 utterances for topic 6:
+yes .
+yes ?
+. yes , yes , yes .
+yes . i know .
+yes , i ' m pretty sure i would .
+yes i am .
+yes . not like <person> .
+yes . yes , someone ' s got to feed them .
+yes , sir .
+yes , he did ?
+
+top 10 utterances for topic 7:
+no i don ' t .
+okay -- i ' ve seen how you always pull your kleenex from the box in groups of three . not two , not four , always three . i ' ve seen you ' re the only one in the world who eats pizza- flavored pringles . and you never stuff the chips in , you savor each one by dividing it into four precise bites . i didn ' t know that was even possible . you ' re also the first girl i ' ve ever seen who spends more time on her roof than in her own house . and what do you do out there ? you don ' t talk on the phone , you don ' t paint your nails , you read books . now one would think with the whole numbers thing you ' ve got going on that you ' d put them on your shelf alphabetically , but you don ' t . your system ' s much more perfect . the ones you like go on the bottom , the ones you love go in the middle , and the ones you need , the ones you keep going back to . well they go straight to the top next to the dream encyclopedia . you know what all this tells me ? you know how things should be . the world according to <person> . and guess what ? it ' s a very entertaining and beautiful thing . even when it takes a hit . when you end up in a place like this . when your parents dump their baggage on you , or just . when it seems like those curveballs are never gon na stop -- it sucks , but just so you know -- i get it . <continued_utterance> d . j . <person>
+i won ' t tell you it ' ll stop feeling this bad . but i can tell you , you didn ' t do anything wrong . the same thing would have happened to me . or frank . or <person> . and there ' s no sense in looking for a reason why things happen . i used to try and . always came up short . i don ' t think the why so ' s important as . what we do with what we get . i remember this boy i ' d see up on the blackfeet reservation . he was sixteen . <person> kid . <person> . he ' d gone swimming and dived headfirst into a rock . snapped his neck , paralyzed him . after the accident , i ' d look in on him from time to time . and he wasn ' t there anymore . his mind , his spirit , whatever you want to call it , it just disappeared . and what was left was nothing but anger . it ' s like the boy i knew just went away somewhere .
+`` <person> drastically underestimates the impact of social distinctions predicated upon wealth , especially inherited wealth . `` you got that from `` work in essex county , '' page <number> , right ? do you have any thoughts of your own on the subject or were you just gon na plagiarize the whole book for me ? <continued_utterance> look , don ' t try to pass yourself off as some kind of an intellect at the expense of my friend just to impress these girls . <continued_utterance> the sad thing is , in about <number> years you might start doin ' some thinkin ' on your own and by then you ' ll realize there are only two certainties in life .
+no , i ' m not . i ' ve been bit . in effect , i ' m already dead . <continued_utterance> children , listen to me . i love you two more than anybody . and i just want you to know you ' ve made me proud all your lives . but never more so than tonight . and i wish we could sit here and cry till i pass on , but we can ' t . because i ' m not going to pass on . i ' m going to turn into a monster . and when i do , i ' m going to be dangerous . but before that happens , just know i love you . now , i ' d say in the next twenty or thirty minutes our friends outside will bust in this door . and i ' ll probably turn into a vampire within the hour . now , you have two choices . you can wait for me to turn , then deal with me , then wait for them to burst inside here and the three of you will deal with them . or , we can kick open that door and the four of us can hit ' em with everything we have , and carve a path right through ' em to front entrance . but if we ' re gon na go at ' em , we got ta go at ' em now . i confused them , i scared them , i took them off guard . but they ' re going to get unconfused , they ' re going to get unscared , they ' re going to get together and they ' re going to hit that door like a ton of bricks . and when that moment arrives , we got ta be ready . <person> sees that the back room is pretty damn big and filled with boxes and crates . <continued_utterance> what ' s this stuff ?
+once . i forget where i was . <person> maybe . <person> hot . <person> job . bad pay . <person> location and water so foul the natives wouldn ' t even piss in it . this crowd of drunken motherfuckers hired by the local drug cartel shows up at my hotel room and threatens to tear me limb from limb . and i say , listen , hombres , ok , you ' ve got me outnumbered four to one and you ' re gunna kill me here tonight and not a soul in this dimly lit world is ever gunna notice i ' m gone . <person> . but one of you . one of you . one of you is gunna have his eye torn out . <person> . <person> . i repeat myself . one of you poor , underpaid jerks is gunna have an eye ripped out of its socket . i promise . it ' s a small thing , perhaps , all things considered . but i will succeed . because it ' s the only thing i have left to do in this world . so why don ' t you just take a good look at one another one last time and think it over for a few minutes more . they sober up a little , look at their shoes in confusion , then step out into the hall to talk among themselves .
+no , don ' t think i do .
+jns is my name . i am a pleasant and talkative young man who has never had anything but kind thoughts and has only done beautiful and noble deeds . i ' m kindest of all to young women . with them , there is no limit to my kindness . <continued_utterance> <person> , my girl . i could very well have raped you , but between you and me , i ' m tired of that kind of love . it runs a little dry in the end . <continued_utterance> now that i think of it , i will need a housekeeper . can you prepare good food ? as far as i know , i ' m still a married man , but i have high hopes that my wife is dead by now . that ' s why i need a housekeeper . the devil with it ! come along and don ' t stand there staring . i ' ve saved your life , so you owe me a great deal .
+oh , no . oh , no ! he pulls out a gleaming new guitar , and we immediately recognize it as the one they saw in the window . he ' s deliriously happy , and speechless -- <continued_utterance> how ' d you do it ? she shouts with delight , attacks him again , pushing the guitar aside . <person> , furious kisses and he responds in kind . they ' re twisted in a heap on the bed . after a moment they come up for air , stare at each other playfully . something flashes across his mind -- <continued_utterance> here . her eyes widen . he takes off his mother ' s earring , fastens it to her ear . <person> dancing , she jumps up , studies it closely , in the mirror --
+i know how hard this must be . . <person> , betsy . i ' m scheduled to come to your apartment at four . no , not five every two hours . it ' s two every five hours . she only weighs thirty pounds for chrissakes . the city has given me the difficult task of deciding when to intervene on behalf of the child . unfortunately , i ' ve learned the hard way that it ' s better too soon than too late . for now the court will decide what ' s in <person> ' s best interest .
+
+top 10 utterances for topic 8:
+<person> . <person> <person> .
+<person> .
+<person> -- ?
+<person> ?
+<person> . <person> .
+<person>d , <person> ?
+<person> ' .
+<person> . <person> !
+<person> --
+<person> !
+
+top 10 utterances for topic 9:
+what ?
+what .
+what ' s this ?
+what ' s that ?
+of what ?
+what ' s your problem ? what did i . why are you --
+just what i said . that ' s what i --
+not what ?
+for what ?
+what for ?
+
+------------
+
+N_TOPICS	DOC_LEN	maxiter	numtriples
+10	100	10	_1k
+Likelihood -2348.09167779
+
+top 10 utterances for topic 0:
+why ?
+<person> ? . why ?
+why me ?
+me ? why ?
+why not ?
+no . why ?
+but why ?
+why didn ' t you ?
+but you knew why . <person> why , didn ' t ya .
+. why did she do it , ruth ? why ?
+
+top 10 utterances for topic 1:
+<person>d , <person> ?
+<person> .
+<person> ?
+<person> !
+<person> -- ?
+<person> , <person> .
+<person> ' s <person> .
+<person>
+<person> . <person> .
+<person> ' .
+
+top 10 utterances for topic 2:
+what ?
+what .
+what ' s that ?
+of what ?
+just what i said . that ' s what i --
+what ' s this ?
+not what ?
+for what ?
+what for ?
+about what ?
+
+top 10 utterances for topic 3:
+sure .
+sure !
+sure , <person> .
+yes , i ' m pretty sure i would .
+yes .
+yes ?
+. yes , yes , yes .
+<person> ? <continued_utterance> you sure ?
+not so good . you sure you have to ?
+you ' re sure he ' ll say yes , the landlord ?
+
+top 10 utterances for topic 4:
+huh ?
+uh-huh .
+i know <person> .
+uh , huh . and what might that be ?
+yeah . i know you .
+you know what ? i .
+would you like one ? huh ?
+<person> ' t you know ?
+you know you know what ?
+yeah . i know about that .
+
+top 10 utterances for topic 5:
+<person> ' .
+<person> .
+<person> --
+<person> !
+<person> ?
+<person> -- ?
+<person> . <person> <person> .
+<person> . <person> .
+<person> . ?
+<person> ' s <person> .
+
+top 10 utterances for topic 6:
+yeah .
+yeah ?
+yeah . i know you .
+yeah , yeah -- go home .
+well . yeah --
+yeah . i know about that .
+yeah , that ' s good !
+i think so , yeah .
+<person> three . yeah .
+yeah , me too .
+
+top 10 utterances for topic 7:
+<person> .
+<person> !
+<person> . <person> <person> .
+<person> . <person> .
+<person> . <person> !
+<person> ?
+<person>d , <person> ?
+<person> . ?
+<person> -- ?
+<person> , <person> .
+
+top 10 utterances for topic 8:
+<person> . <person> <person> .
+<person> -- ?
+<person> .
+<person> !
+<person>
+<person>d , <person> ?
+<person> . <person> !
+<person> ' s <person> .
+<person> ?
+<person> ' .
+
+top 10 utterances for topic 9:
+<person> .
+<person> !
+<person> . <person> .
+<person> ' s <person> .
+<person> ?
+<person> , <person> .
+<person> --
+<person> . <person> <person> .
+<person> ' .
+<person>d , <person> ?
+
+------------
+
+N_TOPICS	DOC_LEN	maxiter	numtriples
+10	100	50	_10k
+Likelihood -20490.7671241
+
+top 10 utterances for topic 0:
+what ?
+. what ?
+what ? !
+what .
+a what ?
+what . ?
+what -- ?
+what ! ?
+what !
+what ' s what ?
+
+top 10 utterances for topic 1:
+<person> ? <person> , yeah .
+<person> , yeah .
+yeah . <person> .
+yeah . i ' m <person> .
+yeah , yeah . <person> .
+<person> , yeah , oh , yeah .
+<person> ?
+<person> . ?
+<person> .
+. <person> ?
+
+top 10 utterances for topic 2:
+<person> .
+<person> !
+<person> ' t .
+<person> ?
+<person> . <person> , <person> --
+<person> . <person> . <person> .
+<person> , <person> .
+<person> . <person> . <person> . <person> .
+<person> , i .
+<person> . <person> .
+
+top 10 utterances for topic 3:
+what ? no .
+no , what ?
+no what ?
+no ? no , what ?
+no !
+no .
+no . no .
+no ?
+no . no . no .
+i . no .
+
+top 10 utterances for topic 4:
+<person> , yes ?
+yes , <person> .
+yes , <person> ?
+yes <person> ?
+yes . <person> ' t it ?
+yes . <person> . <person> , well , thank you <person> .
+<person> .
+<person> , <person> .
+<person> ?
+<person> --
+
+top 10 utterances for topic 5:
+<person> .
+<person> !
+<person> --
+<person> ?
+i ' m <person> .
+<person> ? !
+c-c-c-c-<person> !
+i ' m -- <person> ?
+<person> . <person> .
+<person> ! <person> !
+
+top 10 utterances for topic 6:
+<person> , <person> .
+<person> .
+<person> ? .
+<person> !
+<person> , <person> . <person> , <person> .
+<person> . <person> ?
+<person> --
+<person> ?
+<person> . <person> !
+<person> . ?
+
+top 10 utterances for topic 7:
+<person> ' t what ?
+<person> what ?
+<person> , what ' s .
+<person> , what .
+what <person> ?
+what , <person> ?
+why , <person> .
+<person> , why ?
+<person> ? . why ?
+why , <person> ?
+
+top 10 utterances for topic 8:
+yes , <person> .
+yes , <person> ?
+yes <person> ?
+<person> , yes ?
+yes . i know .
+yes , why ?
+yes . <person> ' t it ?
+why yes , do you know it ?
+yes ?
+yes .
+
+top 10 utterances for topic 9:
+no .
+no ?
+no !
+no , i .
+i . no .
+. no .
+no,
+no , no , no , no .
+no ! no !
+no , no .
+
+------------
+

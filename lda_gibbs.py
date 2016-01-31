@@ -152,7 +152,7 @@ if __name__ == "__main__":
     import os
     import shutil
 
-    N_TOPICS = 10
+    N_TOPICS = 20
     DOCUMENT_LENGTH = 100
     FOLDER = "topicimg"
 
@@ -247,70 +247,76 @@ if __name__ == "__main__":
         Get bag-of-word representation of text dataset, as a matrix.
         """
         vocab_size = None 
-        vName = 'training_utterances_tfidf'
-        if all(map(os.path.isfile, [fn['tfidf_h5'], fn['wordList']])):
-            print "reading in vectorised data..."
-            h5f = h5py.File(fn['tfidf_h5'], 'r')
-            m = h5f[vName][:]            
-            h5f.close()
-            print "data read successfully"
-        else:
-            corpus = getCorpus(fn['raw_data'])
-            vectorizer = TfidfVectorizer(min_df=1)
-            print "vectorising data via tf-idf..."
-            X = vectorizer.fit_transform(corpus)
-            wordList = vectorizer.get_feature_names()
-            m = X.toarray()
-            # save_h5(data_dir, fn['tfidf_h5'], vName, m)
-            print "saving vectorised data in hdf5 format..."
-            h5f = h5py.File(fn['tfidf_h5'])
-            h5f.create_dataset(vName, data=m)
-            h5f.close()
-            with open(fn['wordList'], 'w') as f:
-                json.dump(wordList, f)
+        # vName = 'training_utterances_tfidf'
+        # if all(map(os.path.isfile, [fn['tfidf_h5'], fn['wordList']])):
+        #     print "reading in vectorised data..."
+        #     h5f = h5py.File(fn['tfidf_h5'], 'r')
+        #     m = h5f[vName][:]            
+        #     h5f.close()
+        #     print "data read successfully"
+        # else:
+        corpus = getCorpus(fn['raw_data'])
+        vectorizer = TfidfVectorizer(min_df=1)
+        print "vectorising data via tf-idf..."
+        X = vectorizer.fit_transform(corpus)
+        wordList = vectorizer.get_feature_names()
+        m = X.toarray()
+            # # save_h5(data_dir, fn['tfidf_h5'], vName, m)
+            # print "saving vectorised data in hdf5 format..."
+            # h5f = h5py.File(fn['tfidf_h5'])
+            # h5f.create_dataset(vName, data=m)
+            # h5f.close()
+            # with open(fn['wordList'], 'w') as f:
+            #     json.dump(wordList, f)
 
         print "n_docs, vocab_size", m.shape
-        return m
+        return m, corpus
 
     if os.path.exists(FOLDER):
         shutil.rmtree(FOLDER)
     os.mkdir(FOLDER)
 
     # 10k has vocab size 15749
-    max_iter = 30
-    num_triples = '_1k'
+    max_iter = 60
+    num_triples = '_10k'
+    num_topics = '_' + str(N_TOPICS)
     data_dir = '/disk1/data/hackathon/MovieTriples'
     fn = {'raw_data': data_dir + '/' + 'Training_Shuffled_Dataset' + \
           num_triples +'.txt',
           'tfidf_h5': data_dir + '/' + 'training_utterances_tfidf' + \
           num_triples + '.h5',
           'wordList': data_dir + '/' + 'word_list' + num_triples + '.json',
-          'topicModel': data_dir + '/' + 'topicModel' + num_triples + '.npz',
+          'topicModel': data_dir + '/' + 'topicModel' + num_triples + \
+          str(N_TOPICS) + '.npz',
           'data_lda': data_dir + '/' + 'training_utterances_lda' + \
-          num_triples + '.npz',
-          'output': 'out.txt'}
+          num_topics + '.npz',
+          'output': 'out_tmux0.txt'}
 
     intro = '\t'.join(['N_TOPICS','DOC_LEN','maxiter','numtriples']) + '\n'
     intro += '\t'.join(map(str, [N_TOPICS,DOCUMENT_LENGTH,max_iter,num_triples]))
     intro += '\n'
-    with open(fn['output'], 'a') as f:
-        f.write(intro)
     
     width = N_TOPICS / 2
     # vocab_size = width ** 2
     # word_dist = gen_word_distribution(N_TOPICS, DOCUMENT_LENGTH)
     # matrix = gen_documents(word_dist, N_TOPICS, vocab_size)
-    matrix = get_documents(fn)
+    matrix, corpus = get_documents(fn)
     sampler = LdaSampler(N_TOPICS)
+    loglik = 0
 
     print "training..."
     for it, phi in enumerate(sampler.run(matrix, maxiter=max_iter)):
+        loglik = sampler.loglikelihood()
         print "Iteration", it
-        print "Likelihood", sampler.loglikelihood()
+        print "Likelihood", loglik
+
+    intro += "Likelihood " + str(loglik) + '\n' 
+    with open(fn['output'], 'a') as f:
+        f.write(intro)        
 
     phi = sampler.phi()
     m_lda = np.dot(matrix, phi.transpose())
-    corpus_np = np.asarray(getCorpus(fn['raw_data']))
+    corpus_np = np.asarray(corpus)
     
     for topc in xrange(m_lda.shape[1]):
         s = ''
