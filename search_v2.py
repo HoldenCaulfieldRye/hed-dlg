@@ -194,7 +194,7 @@ class Sampler(object):
         gen = [[] for i in range(n_samples)]
         costs = [0. for i in range(n_samples)]
         beam_empty = False
-        l=0.88
+        l=0.7
         gamma = 4.0
         
         for k in range(max_length):
@@ -296,6 +296,7 @@ class RandomSampler(Sampler):
 
         # Choice is complaining
         next_probs = next_probs.astype("float64") 
+        next_probs[:,:2] = 0
         word_indx = numpy.array([self.model.rng.choice(self.model.idim, p = x/numpy.sum(x))
                                     for x in next_probs], dtype='int32')
         beam_indx = range(next_probs.shape[0])

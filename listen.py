@@ -22,11 +22,13 @@ import codecs
 import nltk
 import theano
 from random import randint
-
+from simSearch import getBayesianSet
 from dialog_encdec import DialogEncoderDecoder 
 from numpy_compat import argpartition
 from state import prototype_state
-
+# sys.path.insert(0, '/disk1/data/hackathon/SkipToughts/skip-thoughts/')
+# import skipthoughts
+# 
 logger = logging.getLogger(__name__)
 
 class Timer(object):
@@ -81,6 +83,7 @@ def parse_args():
 
     return parser.parse_args()
 
+
 def main():
     args = parse_args()
     state = prototype_state()
@@ -107,27 +110,21 @@ def main():
 
     beam_search = search.RandomSampler(model)
     beam_search.compile()
-
-    sample_sentences = [ '{0}',
+    # print 'Loading sent2vec model'
+    # model = skipthoughts.load_model()
+    # print 'Done'
+    sample_sentences = [ 
         'i love {0}',
         'what is your favourite {0} ?',
-        'tell me something about {0} .']#,
-        # 'oh no , a {0} !',
-        # 'a {0} is so delicious .',
-        # "what ' s the big deal about {0} ?",
-        # 'i really want to {0} .',
-        # 'would you like to {0} with me?',
-        # "let ' s all go {0} .",
-        # 'i think women are so {0}.',
-        # 'this {0} has got me so hot right now',
-        # 'i hate {0} ',
-        # 'do you like {0} ?',
-        # "your friend ' s {0} looks so good",
-        # "i ' m sure you're not good at {0}",
-        # "that sounds like a {0} idea",
-        # "i like my {0} strong",
-        # "where is the {0} ?"]
-
+        'oh no , a {0} !',
+        "what ' s the big deal about {0} ?",
+        'i hate {0} ',
+        'do you like {0} ?',
+        "your friend ' s {0} looks so good",
+        "i ' m sure you ' re not good at {0}",
+        "i like my {0} strong",
+        "where is the {0} ?"]
+    sample_sentences = numpy.random.choice(sample_sentences,5)
     # Start chat loop    
     print "READY"
     sys.stdout.flush()
@@ -140,9 +137,21 @@ def main():
         context_samples, context_costs = beam_search.sample(utterances,n_samples = 1,n_turns=args.n_turns)
         all_samples += context_samples
 
-        flat_samples = [item for a in all_samples for item in a]
+        flat_samples = [item.replace("<s>",'').replace("</s>",'') for a in all_samples for item in a]
+        flat_utterances = [item for a in utterances for item in a]
+        # print 'Flat Samples:',flat_samples
+        # print 'Flat Utterances:',flat_utterances 
+        # query_vecs = skipthoughts.encode(model, flat_utterances)
+        # search_vecs = skipthoughts.encode(model, flat_samples)
+
+        # for i in range(len(utterances)):
+        #     print 
+        #     print utterances[i]
+        #     print all_samples[i]
+        # order, score = getBayesianSet(search_vecs, query_vecs, c=2)
+        # print "Sorted samples: ",[flat_samples[i] for i in order]
         print json.dumps(all_samples)
-        sys.stdout.flush()
+        # sys.stdout.flush()
 
 
 if __name__ == "__main__":
