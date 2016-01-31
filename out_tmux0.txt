@@ -1,0 +1,246 @@
+N_TOPICS	DOC_LEN	maxiter	numtriples
+20	100	60	_10k
+Likelihood -23196.1820182
+
+top 10 utterances for topic 0:
+what ?
+what .
+what ? !
+. what ?
+what -- ?
+what ? ! ? !
+what-
+a what ?
+what . ?
+what ' s what ?
+
+top 10 utterances for topic 1:
+yes , what ?
+yes , why ?
+yes ? what is it ?
+what ? why ?
+yes .
+yes ?
+yes !
+yes . yes !
+yes . ?
+. yes .
+
+top 10 utterances for topic 2:
+what ?
+what -- ?
+what ? !
+. what ?
+a what ?
+what !
+what ! ?
+what .
+i what ?
+what . ?
+
+top 10 utterances for topic 3:
+<person> .
+<person> . <person> , <person> --
+<person> !
+<person> ! ! !
+<person> , <person> .
+<person> ?
+<person> . ?
+<person> ' .
+<person> . <person> .
+<person> -
+
+top 10 utterances for topic 4:
+<person> ? <person> , yeah .
+<person> , yeah .
+yeah . <person> .
+yeah . i ' m <person> .
+yeah , yeah . <person> .
+<person> , yeah , oh , yeah .
+<person> . yeah . yeah . i know her .
+yeah .
+yeah ?
+yeah !
+
+top 10 utterances for topic 5:
+<person> ?
+<person> !
+<person> .
+<person> --
+<person> , i -
+<person> . ?
+<person> , a . j .
+<person> . <person> .
+<person> . <person> , <person> .
+<person> , <person> .
+
+top 10 utterances for topic 6:
+well . yeah . <person> .
+<person> ? <person> , yeah .
+yeah . <person> .
+yeah . i ' m <person> .
+<person> , yeah .
+<person> . well . <person> .
+<person> well , <person> .
+well , yeah . i ' m . <person> and you ' re . um -- <person> .
+yeah . well -- see you , <person> .
+well . yeah --
+
+top 10 utterances for topic 7:
+no .
+no !
+i . no .
+no ?
+no . no . no .
+no , i .
+no ! no !
+no --
+no . no .
+no , no , no , no .
+
+top 10 utterances for topic 8:
+<person> . ?
+<person> .
+' <person> . '
+<person> !
+<person> ?
+<person> --
+. a person .
+<person> , <person> .
+<person> . <person> . <person> .
+<person> . <person> .
+
+top 10 utterances for topic 9:
+yes ?
+yes . yes !
+yes .
+yes !
+yes,
+y-y-yes --
+. yes , yes , yes .
+. yes ?
+. yes .
+yes . ?
+
+top 10 utterances for topic 10:
+right .
+right ?
+right . <person> .
+<person> , right .
+right , <person> !
+right-o . <person> .
+yes . right-right away .
+that ' s right .
+that ' s right !
+that ' s right , <person> .
+
+top 10 utterances for topic 11:
+yeah .
+yeah ?
+yeah ? !
+yeah !
+. yeah .
+yeah , yeah --
+yeah , yeah . <person> .
+yeah i do .
+yeah . <person> .
+yeah . i ' m <person> .
+
+top 10 utterances for topic 12:
+no .
+no ?
+no , no , no .
+no !
+no --
+no , no , no , no .
+no ? ?
+no,
+no . no . i .
+no , no .
+
+top 10 utterances for topic 13:
+<person> .
+<person> . <person> .
+<person> !
+<person> . ?
+<person> --
+<person> ?
+<person> -
+<person> , <person> .
+<person> ! !
+w . p . <person> .
+
+top 10 utterances for topic 14:
+<person> !
+<person> ?
+<person> .
+<person> ' <person> ?
+<person> ' .
+<person> . ?
+<person> --
+<person> ' s <person> .
+<person> ? !
+<person>d , <person> ?
+
+top 10 utterances for topic 15:
+<person> .
+<person> , <person> .
+<person> ?
+<person> , i -
+<person> ? !
+<person> !
+<person> . <person> !
+<person> . <person> , <person> .
+<person> . ?
+<person> . . .
+
+top 10 utterances for topic 16:
+<person> , i .
+<person> .
+<person> ?
+<person> !
+<person> . ?
+<person> --
+' <person> . '
+o-<person> ?
+<person> ? !
+<person> ' .
+
+top 10 utterances for topic 17:
+i ' m -- <person> ?
+<person> ?
+<person> .
+<person> . <person> ?
+<person> !
+<person> -- --
+. <person> ?
+<person> , <person> .
+<person> ! ! !
+<person> . <person> <person> .
+
+top 10 utterances for topic 18:
+<person> ?
+<person> !
+<person> .
+w . p . <person> .
+<person> --
+. a person .
+<person> , <person> .
+<person> . ?
+<person> ? !
+' <person> ' ?
+
+top 10 utterances for topic 19:
+i ' m fine . nothing .
+fine . <person> . <person> --
+<person> -- fine .
+fine , <person> , fine .
+fine . <person> this .
+it ' s fine now .
+i ' m fine .
+fine .
+`` fine ? ''
+fine , fine .
+
+------------
+
