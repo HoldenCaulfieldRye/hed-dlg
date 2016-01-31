@@ -128,8 +128,6 @@ def main():
         all_samples = []
         word = raw_input("Listening:\n")
 
-        # while len(utterances) > 2:
-        #    utterances.popleft()
         utterances = []
         for sample_sentence in [sample_sentences[0]]:
             # utterance = [sample_sentence.format(word)]
