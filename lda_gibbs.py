@@ -148,6 +148,7 @@ class LdaSampler(object):
             # FIXME: burn-in and lag!
             yield self.phi()
 
+
 if __name__ == "__main__":
     import os
     import shutil
@@ -276,10 +277,10 @@ if __name__ == "__main__":
         shutil.rmtree(FOLDER)
     os.mkdir(FOLDER)
 
-    # 10k has vocab size 15749
     max_iter = 60
     num_triples = '_10k'
     num_topics = '_' + str(N_TOPICS)
+    topk = 50
     data_dir = '/disk1/data/hackathon/MovieTriples'
     fn = {'raw_data': data_dir + '/' + 'Training_Shuffled_Dataset' + \
           num_triples +'.txt',
@@ -287,9 +288,11 @@ if __name__ == "__main__":
           num_triples + '.h5',
           'wordList': data_dir + '/' + 'word_list' + num_triples + '.json',
           'topicModel': data_dir + '/' + 'topicModel' + num_triples + \
-          str(N_TOPICS) + '.npz',
+          str(N_TOPICS),
+          # str(N_TOPICS) + '.npz',
           'data_lda': data_dir + '/' + 'training_utterances_lda' + \
-          num_topics + '.npz',
+          num_topics,
+          # num_topics + '.npz',
           'output': 'out_tmux0.txt'}
 
     intro = '\t'.join(['N_TOPICS','DOC_LEN','maxiter','numtriples']) + '\n'
@@ -301,26 +304,32 @@ if __name__ == "__main__":
     # word_dist = gen_word_distribution(N_TOPICS, DOCUMENT_LENGTH)
     # matrix = gen_documents(word_dist, N_TOPICS, vocab_size)
     matrix, corpus = get_documents(fn)
-    sampler = LdaSampler(N_TOPICS)
-    loglik = 0
 
-    print "training..."
-    for it, phi in enumerate(sampler.run(matrix, maxiter=max_iter)):
-        loglik = sampler.loglikelihood()
-        print "Iteration", it
-        print "Likelihood", loglik
-
-    intro += "Likelihood " + str(loglik) + '\n' 
+    loadedModel = False
+    if os.path.isfile(fn['topicModel'] + '.npy'):
+        print "loading LDA embedding", fn['topicModel'].split('/')[-1]
+        phi = np.load(fn['topicModel'] + '.npy')
+        loadedModel = True
+    else:
+        # train an LDA embedding
+        sampler = LdaSampler(N_TOPICS)
+        loglik = 0
+        print "training..."
+        for it, phi in enumerate(sampler.run(matrix, maxiter=max_iter)):
+            loglik = sampler.loglikelihood()
+            print "Iteration", it
+            print "Likelihood", loglik
+        intro += "Likelihood " + str(loglik) + '\n' 
+        phi = sampler.phi()
+    
     with open(fn['output'], 'a') as f:
         f.write(intro)        
-
-    phi = sampler.phi()
     m_lda = np.dot(matrix, phi.transpose())
     corpus_np = np.asarray(corpus)
     
     for topc in xrange(m_lda.shape[1]):
         s = ''
-        s += "\ntop 10 utterances for topic " + str(topc) + ':\n'
+        s += "\ntop " + str(topk) + " utterances for topic " + str(topc) + ':\n'
         # print "top 10 utterances for topic %i:" % (topc)
         topc_score = m_lda[:,topc]
         top_idxs = np.argsort(topc_score)[::-1]
@@ -328,7 +337,7 @@ if __name__ == "__main__":
         s += corpus_np_s[0] + '\n'
         # print corpus_np_s[0]
         idx, count = 1, 1
-        while count < 10 and idx < corpus_np_s.shape[0]:
+        while count < topk and idx < corpus_np_s.shape[0]:
             duplicate = False
             for i in xrange(idx):
                 if corpus_np_s[i] == corpus_np_s[idx]:
@@ -344,9 +353,10 @@ if __name__ == "__main__":
     with open(fn['output'], 'a') as f: f.write('\n------------\n\n')
 
 
-    np.save(fn['topicModel'], phi)
-    np.save(fn['data_lda'], m_lda)
-    print "saved topic model under", fn['topicModel']
+    if not loadedModel:
+        np.save(fn['topicModel'], phi)
+        np.save(fn['data_lda'], m_lda)
+        print "saved topic model under", fn['topicModel'] + '.npy'
     
         
         # if it % 5 == 0:
