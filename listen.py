@@ -126,14 +126,14 @@ def main():
     sys.stdout.flush()
     while (True):
         all_samples = []
-        word = raw_input("Listening:\n")
+        word = raw_input("\n")
 
         utterances = []
         for sample_sentence in [sample_sentences[0]]:
             # utterance = [sample_sentence.format(word)]
             # utterances.append(utterance)
             utterance = word
-            print utterance
+            # print utterance
             context_samples, context_costs = beam_search.sample(utterance,n_samples = 10)
             all_samples += context_samples
 
