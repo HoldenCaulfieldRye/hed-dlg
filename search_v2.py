@@ -194,8 +194,8 @@ class Sampler(object):
         gen = [[] for i in range(n_samples)]
         costs = [0. for i in range(n_samples)]
         beam_empty = False
-        l=0.7
-        gamma = 4.0
+        l=0.15
+        gamma = 3.0
         
         for k in range(max_length):
             if k > gamma:
