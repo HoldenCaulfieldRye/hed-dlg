@@ -145,7 +145,7 @@ class Sampler(object):
         beam_diversity = kwargs.get('beam_diversity', 1)
         normalize_by_length = kwargs.get('normalize_by_length', True)
         verbose = kwargs.get('verbose', False)
-        n_turns = kwargs.get('n_turns', 1)
+        n_turns = kwargs.get('n_turns', 100)
 
         # #TODO: Semantic information is currently fixed to zero. This should be replaced by a random multinoulli vector, where each entry is sampled proportional to its frequency.
         semantic_info = numpy.zeros((1,1)).astype('int32')

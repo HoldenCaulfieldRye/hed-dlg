@@ -57,6 +57,8 @@ def sample(model, seqs=[[]], n_samples=1, beam_search=None, ignore_unk=False,ver
     else:
         raise Exception("I don't know what to do")
 
+# def rank_bs():
+
 def parse_args():
     parser = argparse.ArgumentParser("Sample (with beam-search) from the session model")
        
@@ -102,40 +104,42 @@ def main():
     beam_search = search.BeamSampler(model)
     beam_search.compile()
 
-    sample_sentences = ['what is your favourite {0} ?',
+    sample_sentences = [ '{0}',
+        'i love {0}',
+        'what is your favourite {0} ?',
         'tell me something about {0} .',
         'oh no , a {0} !',
         'a {0} is so delicious .',
         "what ' s the big deal about {0} ?",
         'i really want to {0} .',
-        'would you like to {0} with me ?',
+        'would you like to {0} with me?',
         "let ' s all go {0} .",
-        'i think women are so {0} .',
+        'i think women are so {0}.',
         'this {0} has got me so hot right now',
-        'sometimes you get very {0} , did you know that ?',
+        'i hate {0} ',
         'do you like {0} ?',
         "your friend ' s {0} looks so good",
         "i ' m sure you're not good at {0}",
         "that sounds like a {0} idea",
-        "i like my {0} strong"]
+        "i like my {0} strong",
+        "where is the {0} ?"]
 
     # Start chat loop    
-    utterances = collections.deque()
-   
+    # utterances = collections.deque()
     print "READY"
     sys.stdout.flush()
     while (True):
         all_samples = []
         word = raw_input("\n")
-
         utterances = []
-        for sample_sentence in [sample_sentences[0]]:
-            # utterance = [sample_sentence.format(word)]
+        for sample_sentence in sample_sentences:
+            utterances.append([sample_sentence.format(word)])
             # utterances.append(utterance)
-            utterance = word
+            # utterance = word
             # print utterance
-            context_samples, context_costs = beam_search.sample(utterance,n_samples = 10)
-            all_samples += context_samples
+        print utterances
+        context_samples, context_costs = beam_search.sample(utterances,n_samples = 5)
+        all_samples += context_samples
 
         flat_samples = [item for a in all_samples for item in a]
         print json.dumps(all_samples)

@@ -96,7 +96,7 @@ def main():
     lines = open(args.context, "r").readlines()
     if len(lines):
         contexts = [x.strip().split('\t') for x in lines]
-    
+    print contexts
     context_samples, context_costs = sampler.sample(contexts,
                                             n_samples=args.n_samples,
                                             n_turns=args.n_turns,
