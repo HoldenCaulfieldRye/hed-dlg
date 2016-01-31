@@ -9,7 +9,7 @@ Finding scientifc topics (Griffiths and Steyvers)
 """
 
 import sys, os
-import h5py
+import h5py, json
 import numpy as np
 import scipy as sp
 import sklearn 
@@ -124,6 +124,7 @@ class LdaSampler(object):
         Run the Gibbs sampler.
         """
         n_docs, vocab_size = matrix.shape
+        print "n_docs, vocab_size", n_docs, vocab_size
         self._initialize(matrix)
 
         for it in xrange(maxiter):
@@ -247,52 +248,79 @@ if __name__ == "__main__":
         """
         vocab_size = None 
         vName = 'training_utterances_tfidf'
-        if os.path.isfile(fn['tfidf_h5']):
+        if all(map(os.path.isfile, [fn['tfidf_h5'], fn['wordList']])):
             print "reading in vectorised data..."
             h5f = h5py.File(fn['tfidf_h5'], 'r')
-            m = h5f[vName][:]
+            m = h5f[vName][:]            
             h5f.close()
+            print "data read successfully"
         else:
             corpus = getCorpus(fn['raw_data'])
             vectorizer = TfidfVectorizer(min_df=1)
             print "vectorising data via tf-idf..."
             X = vectorizer.fit_transform(corpus)
             wordList = vectorizer.get_feature_names()
-            vocab_size = len(wordList)
-            print "vocab size", vocab_size
             m = X.toarray()
+            # save_h5(data_dir, fn['tfidf_h5'], vName, m)
             print "saving vectorised data in hdf5 format..."
             h5f = h5py.File(fn['tfidf_h5'])
             h5f.create_dataset(vName, data=m)
             h5f.close()
-                            
-        return m, vocab_size
+            with open(fn['wordList'], 'w') as f:
+                json.dump(wordList, f)
+
+        print "n_docs, vocab_size", m.shape
+        return m
 
     if os.path.exists(FOLDER):
         shutil.rmtree(FOLDER)
     os.mkdir(FOLDER)
 
-    num_triples = '_10k'
-    data_dir = '/mnt/networked/hackathon/MovieTriples'
+    # 10k has vocab size 15749
+    num_triples = '_1k'
+    data_dir = '/disk1/data/hackathon/MovieTriples'
     fn = {'raw_data': data_dir + '/' + 'Training_Shuffled_Dataset' + \
           num_triples +'.txt',
           'tfidf_h5': data_dir + '/' + 'training_utterances_tfidf' + \
-          num_triples + '.h5'}
+          num_triples + '.h5',
+          'wordList': data_dir + '/' + 'word_list' + num_triples + '.json',
+          'topicModel': data_dir + '/' + 'topicModel' + num_triples + '.npz',
+          'data_lda': data_dir + '/' + 'training_utterances_lda' + \
+          num_triples + '.npz'}
     
     width = N_TOPICS / 2
-    vocab_size = width ** 2
-    word_dist = gen_word_distribution(N_TOPICS, DOCUMENT_LENGTH)
+    # vocab_size = width ** 2
+    # word_dist = gen_word_distribution(N_TOPICS, DOCUMENT_LENGTH)
     # matrix = gen_documents(word_dist, N_TOPICS, vocab_size)
-    matrix, vocab_size = get_documents(fn)
+    matrix = get_documents(fn)
     sampler = LdaSampler(N_TOPICS)
 
+    print "training..."
     for it, phi in enumerate(sampler.run(matrix)):
         print "Iteration", it
         print "Likelihood", sampler.loglikelihood()
 
-        if it % 5 == 0:
-            for z in range(N_TOPICS):
-                save_document_image("topicimg/topic%d-%d.png" % (it,z),
-                                    phi[z,:].reshape(width,-1))
+    phi = sampler.phi()
+    m_lda = np.dot(matrix, phi.transpose())
+    corpus_np = np.asarray(getCorpus(fn['raw_data']))
+    
+    for topc in xrange(m_lda.shape[1]):
+        print "top 10 utterances for topic %i:" % (topc)
+        topc_score = m_lda[:,topc]
+        top_idxs = np.argsort(topc_score)[::-1]
+        for utt in np.unique(corpus_np[top_idxs])[:10]:
+            print utt
+        print ''
+        
+
+    np.save(fn['topicModel'], phi)
+    np.save(fn['data_lda'], m_lda)
+    print "saved topic model under", fn['topicModel']
+    
+        
+        # if it % 5 == 0:
+        #     for z in range(N_TOPICS):
+        #         save_document_image("topicimg/topic%d-%d.png" % (it,z),
+        #                             phi[z,:].reshape(width,-1))
 
 
