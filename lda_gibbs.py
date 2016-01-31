@@ -313,7 +313,12 @@ if __name__ == "__main__":
         print corpus_np_s[0]
         idx, count = 1, 1
         while count < 10 and idx < corpus_np_s.shape[0]:
-            if corpus_np_s[idx] != corpus_np_s[idx-1]:
+            duplicate = False
+            for i in xrange(idx):
+                if corpus_np_s[i] == corpus_np_s[idx]:
+                    duplicate = True
+                    break
+            if not duplicate:
                 print corpus_np_s[idx]
                 count +=1
             idx += 1
