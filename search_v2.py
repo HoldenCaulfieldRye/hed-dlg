@@ -194,22 +194,33 @@ class Sampler(object):
         gen = [[] for i in range(n_samples)]
         costs = [0. for i in range(n_samples)]
         beam_empty = False
-        l=.8
-        gamma = 0.5
+        l=.9
+        gamma = 300.0
+        
         for k in range(max_length):
+            if k > gamma:
+                g = 0
+            else: 
+                g = 1
             if len(fin_gen) >= n_samples or beam_empty:
                 break
              
             if verbose:
                 logger.info("{} : sampling step {}, beams alive {}".format(self.name, k, len(gen)))
              
-            next_probs, new_hd = self.get_probs(k,context,reversed_context,semantic_info,prev_hs,prev_hd,gen,ignore_unk,min_length)
-            # print next_probs
-            next_probs_null, new_hd_null = self.get_probs(k,context_null,reversed_context_null,semantic_info,prev_hs_null,prev_hd_null,gen,ignore_unk,min_length)
+            likelihood, new_hd = self.get_probs(k,context,reversed_context,semantic_info,prev_hs,prev_hd,gen,ignore_unk,min_length)
+
+           
+            prior, new_hd_null = self.get_probs(k,context_null,reversed_context_null,semantic_info,prev_hs_null,prev_hd_null,gen,ignore_unk,min_length)
+            # prior *= next_probs_null
             # print next_probs_null
             # Update costs 
-            next_costs = numpy.array(costs)[:, None] - (numpy.log(next_probs)-l*np.log(next_probs_null)+gamma*k)
-            
+            # next_costs = numpy.array(costs)[:, None] - (numpy.log(next_probs)-l*np.log(g*next_probs_null)+0*gamma*k)
+            next_probs = np.exp((np.log(likelihood)-l*np.log(g*prior)))
+            # print next_probs
+            next_costs = numpy.array(costs)[:, None] - (np.log(likelihood)-l*np.log(g*prior))
+            # print next_probs_null.shape
+            # assert False
             # Select next words here
             (beam_indx, word_indx), costs = self.select_next_words(next_costs, next_probs, k, n_samples)
             # Update the stacks
