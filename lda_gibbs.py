@@ -308,9 +308,20 @@ if __name__ == "__main__":
         print "top 10 utterances for topic %i:" % (topc)
         topc_score = m_lda[:,topc]
         top_idxs = np.argsort(topc_score)[::-1]
-        for utt in np.unique(corpus_np[top_idxs])[:10]:
-            print utt
-        print ''
+        print topc_score[top_idxs[:10]] # this works but get repeats
+        corpus_np_s = corpus_np[top_idxs]
+        print corpus_np_s[0]
+        idx, count = 1, 1
+        while count < 10 and idx < corpus_np_s.shape[0]:
+            if corpus_np_s[idx] != corpus_np_s[idx-1]:
+                print corpus_np_s[idx]
+                count +=1
+            idx += 1
+        # for utt in np.unique(corpus_np[top_idxs])
+        # print ''
+        # for utt in np.unique(corpus_np[top_idxs])[:10]:
+        #     print utt
+        # print ''
         
 
     np.save(fn['topicModel'], phi)
